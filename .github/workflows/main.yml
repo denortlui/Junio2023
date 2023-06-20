@@ -2,7 +2,9 @@ on:
   workflow_dispatch:
   push:
     branches: [ denortlui ]
-  
+  pull_request:
+    types: [ closed ]
+
 jobs:
   Build:
     runs-on: ubuntu-latest
