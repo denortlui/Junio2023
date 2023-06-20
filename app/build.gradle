@@ -9,6 +9,36 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    
+    //Para poder añadir paquetes a GH
+    id 'maven-publish'
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/denortlui/Junio2023")         
+            credentials {
+            //las propiedades gpr.user y gpr.key están configuradas en gradle.properties en el raiz del proyecto, y se añade a .gitignore para que no se suban
+            //O bien configuro las variables de entorno GITHUB_LOGIN y GITHUB_PACKAGES
+                username = System.getenv("GITHUB_LOGIN")
+                password = System.getenv("GITHUB_PACKAGES")
+                }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+         //Del tutorial https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven
+        
+            groupId = 'fs.examen.paquetes'
+            artifactId = 'ex'
+            version = '0.1'
+
+            from components.java
+        }
+       
+    }
 }
 
 repositories {
